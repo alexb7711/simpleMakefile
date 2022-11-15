@@ -37,6 +37,6 @@ $(obj_d):
 $(target): $(obj)
 	@$(cc) -o $@ $(obj) $(ldflags)
 
-$(obj_d)/%.o: $(src_d)/$(src)
+$(obj_d)/%.o: $(src)
 	@echo "Building $(notdir $@)"
 	@$(cc) $(cflags) -o $@ $<
