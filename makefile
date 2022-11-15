@@ -1,7 +1,11 @@
 # Directories
-src_d = src
-obj_d = .obj
-bin_d = .
+src_d    = src
+src_d_r := $(shell find $(src_d) -type d)
+obj_d    = .obj
+bin_d    = .
+
+# Virtual paths
+vpath %.c $(src_d_r)
 
 # Compiler setup
 cc     = gcc
