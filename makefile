@@ -1,22 +1,38 @@
-cc     = g++
+# Directories
+src_d = src
+obj_d = .obj
+bin_d = .
+
+# Compiler setup
+cc     = gcc
 cflags = -Wall -g
-lflags = sfml-app -lsfml-graphics -lsfml-window -lsfml-system
-src    = $(wildcard *.cpp) \
-		 $(wildcard **/*.cpp)
-objs  := $(src:.cpp=.o)
-target = tardious
+lflags = 
 
-all: $(target)
-	echo $(src)
+# Files
+src    := $(notdir $(shell find $(src_d) -type -f -name "*.c"))
+obj    := $(patsubst %.c, $(obj_d), $(src))
+target = main
 
-$(target): $(objs)
-	$(cc) obj/*.o -L $(lflags) -o $(target)
+################################################################
+# RECIPES
+################################################################
+all: $(obj_d) $(target)
 
-$(objs): $(src)
-	$(cc) $(cflags) -c $^
-	mv *.o obj/
 clean:
-	rm $(target) obj/*.o 
+	rm -rf $(target) $(obj_d)
 
 run: 
 	./$(target)
+
+################################################################
+# HELPER
+################################################################
+$(obj_d):
+	@mkdir -p (obj_d)/
+
+$(target): $(obj)
+	@$(cc) -o $@ $(obj) $(ldflags)
+
+$(obj_d)/%.o: $(src_d)/$(src)
+	@echo "Building $(notdir $@)"
+	@$(cc) $(cflags) -o $@ $<
