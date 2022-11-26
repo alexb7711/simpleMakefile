@@ -13,7 +13,7 @@ cflags = -Wall -g
 lflags = 
 
 # Files
-src    := $(notdir $(shell find $(src_d) -type -f -name "*.c"))
+src    := $(notdir $(shell find $(src_d) -type f -name "*.c"))
 obj    := $(patsubst %.c, $(obj_d), $(src))
 target = main
 
